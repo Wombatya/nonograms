@@ -354,7 +354,6 @@ class Level {
   }
 
   revealPicture() {
-    let pic = document.querySelector(".board");
     clearInterval(interval);
     winSound.play();
     endModalText.innerText =
@@ -455,8 +454,11 @@ class Game {
     this.mouseMode = "cursor";
   }
 
+
   isLevelWon(board) {
+    console.log(this.currentLevel.valueString)
     if (this.currentLevel.valueString === board.findCurrentVals()) {
+        console.log('got it')
       this.currentLevel.won = true;
       return true;
     } else {
@@ -516,6 +518,27 @@ const resultsBtn = document.createElement("button");
 resultsBtn.classList.add("results");
 resultsBtn.innerText = "See the Results";
 endModalContent.appendChild(resultsBtn);
+
+const resultsModal = document.createElement("div");
+resultsModal.classList.add("modal-results");
+document.body.appendChild(resultsModal);
+
+const resultsModalContent = document.createElement("div");
+resultsModalContent.classList.add("modal-results-content");
+resultsModal.appendChild(resultsModalContent);
+
+const resultsModalHeading = document.createElement("div");
+resultsModalHeading.classList.add("modal-results-heading");
+resultsModalHeading.innerText = "Last 5 games:";
+resultsModalContent.appendChild(resultsModalHeading);
+
+const resultsChart = document.createElement("div");
+resultsChart.classList.add("results-chart");
+resultsModalContent.appendChild(resultsChart);
+
+const newGameBtn = document.createElement("button");
+newGameBtn.innerText = "Start a New Game";
+resultsModalContent.appendChild(newGameBtn);
 
 const levelsModal = document.createElement("div");
 levelsModal.classList.add("modal-levels");
@@ -583,7 +606,7 @@ fivesModalContent.appendChild(hourglassBtn);
 fivesBtn.addEventListener("click", showFives);
 
 function showFives() {
-  hideModals();
+  levelsModal.classList.remove("active");
   fivesModal.classList.add("active");
   if(checkbox.checked) {
     fivesModalContent.classList.add("dark");
@@ -592,15 +615,8 @@ function showFives() {
   }
 }
 
-function hideModals() {
-  levelsModal.classList.remove("active");
-  fivesModal.classList.remove("active");
-  tensModal.classList.remove("active");
-  fifteensModal.classList.remove("active");
-}
-
 towerBtn.addEventListener("click", () => {
-  hideModals();
+  fivesModal.classList.remove("active");
   currentIdx = 0;
   const g = new Game();
   g.play();
@@ -608,7 +624,7 @@ towerBtn.addEventListener("click", () => {
 });
 
 snowflakeBtn.addEventListener("click", () => {
-  hideModals();
+  fivesModal.classList.remove("active");
   currentIdx = 1;
   const g = new Game();
   g.play();
@@ -616,7 +632,7 @@ snowflakeBtn.addEventListener("click", () => {
 });
 
 airplaneBtn.addEventListener("click", () => {
-  hideModals();
+  fivesModal.classList.remove("active");
   currentIdx = 2;
   const g = new Game();
   g.play();
@@ -624,7 +640,7 @@ airplaneBtn.addEventListener("click", () => {
 });
 
 skullBtn.addEventListener("click", () => {
-  hideModals();
+  fivesModal.classList.remove("active");
   currentIdx = 3;
   const g = new Game();
   g.play();
@@ -632,7 +648,7 @@ skullBtn.addEventListener("click", () => {
 });
 
 hourglassBtn.addEventListener("click", () => {
-  hideModals();
+  fivesModal.classList.remove("active");
   currentIdx = 4;
   const g = new Game();
   g.play();
@@ -670,7 +686,7 @@ tensModalContent.appendChild(musicBtn);
 tensBtn.addEventListener("click", showTens);
 
 function showTens() {
-  hideModals();
+  levelsModal.classList.remove("active");
   tensModal.classList.add("active");
   if(checkbox.checked) {
     tensModalContent.classList.add("dark");
@@ -680,7 +696,7 @@ function showTens() {
 }
 
 treeBtn.addEventListener("click", () => {
-  hideModals();
+  tensModal.classList.remove("active");
   currentIdx = 5;
   const g = new Game();
   g.play();
@@ -688,7 +704,7 @@ treeBtn.addEventListener("click", () => {
 });
 
 coffeeBtn.addEventListener("click", () => {
-  hideModals();
+  tensModal.classList.remove("active");
   currentIdx = 6;
   const g = new Game();
   g.play();
@@ -696,7 +712,7 @@ coffeeBtn.addEventListener("click", () => {
 });
 
 tvBtn.addEventListener("click", () => {
-  hideModals();
+  tensModal.classList.remove("active");
   currentIdx = 7;
   const g = new Game();
   g.play();
@@ -704,7 +720,7 @@ tvBtn.addEventListener("click", () => {
 });
 
 leafBtn.addEventListener("click", () => {
-  hideModals();
+  tensModal.classList.remove("active");
   currentIdx = 8;
   const g = new Game();
   g.play();
@@ -712,7 +728,7 @@ leafBtn.addEventListener("click", () => {
 });
 
 musicBtn.addEventListener("click", () => {
-  hideModals();
+  tensModal.classList.remove("active");
   currentIdx = 9;
   const g = new Game();
   g.play();
@@ -750,7 +766,7 @@ fifteensModalContent.appendChild(homeBtn);
 fifteensBtn.addEventListener("click", showFifteens);
 
 function showFifteens() {
-  hideModals();
+  levelsModal.classList.remove("active");
   fifteensModal.classList.add("active");
   if(checkbox.checked) {
     fifteensModalContent.classList.add("dark");
@@ -760,7 +776,7 @@ function showFifteens() {
 }
 
 flowerBtn.addEventListener("click", () => {
-  hideModals();
+  fifteensModal.classList.remove("active");
   currentIdx = 10;
   const g = new Game();
   g.play();
@@ -768,7 +784,7 @@ flowerBtn.addEventListener("click", () => {
 });
 
 turtleBtn.addEventListener("click", () => {
-  hideModals();
+  fifteensModal.classList.remove("active");
   currentIdx = 11;
   const g = new Game();
   g.play();
@@ -776,7 +792,7 @@ turtleBtn.addEventListener("click", () => {
 });
 
 deerBtn.addEventListener("click", () => {
-  hideModals();
+  fifteensModal.classList.remove("active");
   currentIdx = 12;
   const g = new Game();
   g.play();
@@ -784,7 +800,7 @@ deerBtn.addEventListener("click", () => {
 });
 
 duckBtn.addEventListener("click", () => {
-  hideModals();
+  fifteensModal.classList.remove("active");
   currentIdx = 13;
   const g = new Game();
   g.play();
@@ -792,7 +808,7 @@ duckBtn.addEventListener("click", () => {
 });
 
 homeBtn.addEventListener("click", () => {
-  hideModals();
+  fifteensModal.classList.remove("active");
   currentIdx = 14;
   const g = new Game();
   g.play();
@@ -885,3 +901,20 @@ soundWrapper.addEventListener('click', () => {
         soundOff.classList.add("active");
     }
 })
+
+resultsBtn.addEventListener('click', () => {
+    endModal.classList.remove("active");
+    resultsModal.classList.add("active");
+    if(checkbox.checked) {
+        resultsModalContent.classList.add("dark");
+        resultsModalHeading.classList.add("dark");
+    } else {
+        resultsModalContent.classList.remove("dark");
+        resultsModalHeading.classList.remove("dark");
+    }
+})
+
+newGameBtn.addEventListener('click', () => {
+    resultsModal.classList.remove("active");
+    randomGame();
+});
